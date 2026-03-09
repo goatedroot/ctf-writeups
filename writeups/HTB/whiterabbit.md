@@ -60,7 +60,7 @@ tried bruteforcing users with correct hash for each using python but didnt work
 
 ## foothold — SQL injection
 
-tried putting email as:
+tried putting email as (with correct signature):
 
 ```json
 {"email": "admin@whiterabbit.htb\""}
