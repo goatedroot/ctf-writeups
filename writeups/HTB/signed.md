@@ -19,8 +19,6 @@ scott : Sm230#C5NatH  (MSSQL)
 1433/tcp open  ms-sql-s Microsoft SQL Server 2022 16.00.1000.00
 ```
 
-Microsoft SQL Server 2022 16.00.1000.00 is outdated and has multiple vulnerabilities
-
 ---
 
 ## enumeration
