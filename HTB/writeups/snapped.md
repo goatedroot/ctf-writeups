@@ -160,4 +160,4 @@ and got ROOT!!
 
 ## proof
 
-![root](../../proof/snapped.png)
+![root](../proofs/snapped.png)

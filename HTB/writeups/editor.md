@@ -85,4 +85,4 @@ it was a vulnerable version (CVE-2024-32019), so using a public exploit I got ro
 
 ## proof
 
-![root](../../proof/editor.png)
+![root](../proofs/editor.png)

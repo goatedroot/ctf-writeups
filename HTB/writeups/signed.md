@@ -184,4 +184,4 @@ as OPENROWSET(BULK) runs with the privs of the Servers account and not of the us
 
 ## proof
 
-![root](../../proof/signed.png)
+![root](../proofs/signed.png)

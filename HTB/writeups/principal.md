@@ -178,4 +178,4 @@ and now we are ROOT!!
 
 ## proof
 
-![root](../../proof/principal.png)
+![root](../proofs/principal.png)

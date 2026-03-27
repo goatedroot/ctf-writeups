@@ -207,4 +207,4 @@ and got root!!
 
 ## proof
 
-![root](../../proof/whiterabbit.png)
+![root](../proofs/whiterabbit.png)
