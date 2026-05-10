@@ -254,7 +254,6 @@ second = 31bit + '?' (here using '?' tries both 0 and 1)
 
 so now as we know the current full array we can predict the next (already done by the cracker)
 
-made a python script to predict the admin's boundary and send him the payload — *(script deleted, completed this ctf a while ago)*
 
 ```
 flag: picoCTF{always_a_step_ahead_fb2a1a8c}
